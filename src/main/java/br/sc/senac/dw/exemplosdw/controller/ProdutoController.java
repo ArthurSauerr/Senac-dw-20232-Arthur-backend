@@ -19,10 +19,10 @@ public class ProdutoController {
         ProdutoVO p2 = new ProdutoVO("Produto 2", "Fabricante 2", 20, 2, LocalDate.now());
         ProdutoVO p3 = new ProdutoVO("Produto 3", "Fabricante 3", 30, 3, LocalDate.now());
 
-        ArrayList<ProdutoVO> lista = new ArrayList<ProdutoVO>();
+        ArrayList<ProdutoVO> lista = new ArrayList<>();
         lista.add(p1);
         lista.add(p2);
-        lista.add(p2);
+        lista.add(p3);
 
         return lista;
     }
