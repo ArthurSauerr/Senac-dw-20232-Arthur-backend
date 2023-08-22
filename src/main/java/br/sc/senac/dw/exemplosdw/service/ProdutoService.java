@@ -15,7 +15,6 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-
     @Transactional
     public List<ProdutoVO> listarTodos() {
         return produtoRepository.findAll();
@@ -23,5 +22,19 @@ public class ProdutoService {
 
     public ProdutoVO consultarPorId(Long id) {
         return produtoRepository.findById(id.longValue()).get();
+    }
+
+    public ProdutoVO inserir(ProdutoVO novoProduto){
+        return produtoRepository.save(novoProduto);
+    }
+
+    public boolean excluir(Integer id) {
+        produtoRepository.deleteById(id.longValue());
+        return true;
+    }
+
+    public boolean atualizar(ProdutoVO produtoParaAtualizar) {
+        produtoRepository.save(produtoParaAtualizar);
+        return true;
     }
 }

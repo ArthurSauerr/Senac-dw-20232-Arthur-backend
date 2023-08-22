@@ -1,14 +1,10 @@
 package br.sc.senac.dw.exemplosdw.controller;
 
+import br.sc.senac.dw.exemplosdw.exceptions.CampoInvalidoException;
 import br.sc.senac.dw.exemplosdw.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import br.sc.senac.dw.exemplosdw.model.vo.ProdutoVO;
@@ -21,12 +17,27 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @GetMapping(path = "/todos")
-    public List<ProdutoVO> listarTodosProdutos(){
+    public List<ProdutoVO> listarTodosProdutos() {
         return produtoService.listarTodos();
     }
 
     @GetMapping(path = "/{id}")
     public ProdutoVO consultarPorId(@PathVariable Integer id) {
         return produtoService.consultarPorId(id.longValue());
+    }
+
+    @PostMapping
+    public ProdutoVO inserir(@RequestBody ProdutoVO novoProduto) throws CampoInvalidoException {
+        return produtoService.inserir(novoProduto);
+    }
+
+    @PutMapping()
+    public boolean atualizar(@RequestBody ProdutoVO produtoParaAtualizar)throws CampoInvalidoException{
+        return produtoService.atualizar(produtoParaAtualizar);
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean excluir(@PathVariable Integer id){
+        return produtoService.excluir(id);
     }
 }
