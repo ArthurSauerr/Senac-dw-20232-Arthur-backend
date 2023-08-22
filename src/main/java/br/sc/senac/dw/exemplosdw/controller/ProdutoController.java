@@ -1,11 +1,15 @@
 package br.sc.senac.dw.exemplosdw.controller;
 
+import br.sc.senac.dw.exemplosdw.service.ProdutoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import br.sc.senac.dw.exemplosdw.model.vo.ProdutoVO;
 
@@ -13,17 +17,16 @@ import br.sc.senac.dw.exemplosdw.model.vo.ProdutoVO;
 @RequestMapping(path = "/api/produtos")
 public class ProdutoController {
 
-    @GetMapping
-    public ArrayList<ProdutoVO> listarTodosProdutos(){
-        ProdutoVO p1 = new ProdutoVO("Produto 1", "Fabricante 1", 10, 1, LocalDate.now());
-        ProdutoVO p2 = new ProdutoVO("Produto 2", "Fabricante 2", 20, 2, LocalDate.now());
-        ProdutoVO p3 = new ProdutoVO("Produto 3", "Fabricante 3", 30, 3, LocalDate.now());
+    @Autowired
+    private ProdutoService produtoService;
 
-        ArrayList<ProdutoVO> lista = new ArrayList<>();
-        lista.add(p1);
-        lista.add(p2);
-        lista.add(p3);
+    @GetMapping(path = "/todos")
+    public List<ProdutoVO> listarTodosProdutos(){
+        return produtoService.listarTodos();
+    }
 
-        return lista;
+    @GetMapping(path = "/{id}")
+    public ProdutoVO consultarPorId(@PathVariable Integer id) {
+        return produtoService.consultarPorId(id.longValue());
     }
 }
